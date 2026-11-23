@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#10120f">
+<title>Northstar Supply — Aivanta AI Demo</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap');
+:root{--bg:#10120f;--panel:#171a16;--panel2:#1d211c;--line:#30362e;--text:#f2f1e9;--muted:#a3a99d;--accent:#c8f169;--accent2:#e3f5b7;--white:#fff}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 78% 0%,rgba(200,241,105,.09),transparent 32%),var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh}
+a{color:inherit;text-decoration:none}button,input{font:inherit}.shell{max-width:1180px;margin:auto;padding:0 28px}
+header{height:76px;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center}.nav{display:flex;justify-content:space-between;align-items:center;width:100%}.brand{display:flex;gap:12px;align-items:center;font:500 13px 'DM Mono',monospace;letter-spacing:.18em}.mark{width:28px;height:28px;border:1px solid var(--accent);transform:rotate(45deg);display:grid;place-items:center}.mark:after{content:"";width:10px;height:10px;background:var(--accent);display:block}.navright{font:11px 'DM Mono',monospace;color:var(--muted);letter-spacing:.12em}
+.hero{padding:68px 0 40px;display:grid;grid-template-columns:1fr auto;gap:30px;align-items:end}.eyebrow,.mono{font:11px 'DM Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}h1{font:500 clamp(42px,7vw,76px)/.99 'Playfair Display',serif;letter-spacing:-.035em;max-width:760px;margin:18px 0 16px}h1 em{color:var(--accent);font-weight:500}.intro{max-width:600px;color:var(--muted);line-height:1.7;font-size:16px}.demo-tag{border:1px solid rgba(200,241,105,.35);background:rgba(200,241,105,.07);padding:11px 14px;border-radius:4px;color:var(--accent2);font:10px 'DM Mono',monospace;letter-spacing:.09em;white-space:nowrap;margin-bottom:12px}
+.main{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(260px,.75fr);gap:18px;padding:16px 0 72px}
+.chat-card,.side-card{background:linear-gradient(145deg,rgba(255,255,255,.035),transparent 55%),var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:0 22px 70px rgba(0,0,0,.22)}
+.chat-head{height:72px;padding:0 22px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.store{display:flex;align-items:center;gap:12px}.store-icon{height:36px;width:36px;border:1px solid #536044;border-radius:8px;display:grid;place-items:center;color:var(--accent);font:16px 'Playfair Display',serif}.store strong{display:block;font-size:13px;letter-spacing:.02em}.store small{display:block;color:var(--muted);font:10px 'DM Mono',monospace;margin-top:4px}.online{display:flex;align-items:center;gap:7px;color:#c9d4bf;font:10px 'DM Mono',monospace}.dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px rgba(200,241,105,.6)}
+.messages{height:420px;overflow:auto;padding:24px 22px 18px;display:flex;flex-direction:column;gap:16px;scroll-behavior:smooth}.msg{display:flex;gap:10px;max-width:88%;align-items:flex-start}.msg.user{align-self:flex-end;flex-direction:row-reverse}.avatar{flex:0 0 28px;height:28px;border-radius:8px;background:#293123;color:var(--accent);display:grid;place-items:center;font:12px 'DM Mono',monospace}.user .avatar{background:#30352d;color:#e8ebdf}.bubble{border:1px solid var(--line);background:#20251e;border-radius:3px 12px 12px 12px;padding:12px 14px;font-size:13px;line-height:1.65;color:#e6e9df}.user .bubble{background:#30362d;border-color:#3b4435;border-radius:12px 3px 12px 12px}.bubble strong{color:var(--accent2);font-weight:600}.time{display:block;color:#899184;font:9px 'DM Mono',monospace;margin-top:7px}.suggestions{padding:0 22px 17px;display:flex;flex-wrap:wrap;gap:8px}.suggestions button{border:1px solid #414a3a;background:transparent;color:#d6ddcc;border-radius:20px;padding:8px 11px;font-size:11px;cursor:pointer;transition:.2s}.suggestions button:hover{border-color:var(--accent);color:var(--accent);background:rgba(200,241,105,.06)}
+.composer{border-top:1px solid var(--line);padding:14px;display:flex;gap:10px}.composer input{min-width:0;flex:1;background:#11140f;border:1px solid #343b30;color:var(--text);border-radius:7px;padding:13px 14px;outline:none;font-size:13px}.composer input:focus{border-color:#8ba94d}.composer input::placeholder{color:#778071}.send{width:44px;border:0;border-radius:7px;background:var(--accent);color:#17200d;font-size:18px;font-weight:700;cursor:pointer}.send:hover{background:var(--accent2)}.chat-foot{padding:0 17px 14px;display:flex;justify-content:space-between;align-items:center;color:#899184;font:9px 'DM Mono',monospace}.reset{background:none;border:0;color:#aeb8a4;text-decoration:underline;cursor:pointer;font:inherit}
+.side{display:flex;flex-direction:column;gap:14px}.side-card{padding:22px}.side-card h2{font:500 25px 'Playfair Display',serif;margin:10px 0 9px}.side-card p{font-size:12px;line-height:1.7;color:var(--muted);margin:0}.side-list{list-style:none;padding:0;margin:18px 0 0}.side-list li{padding:12px 0;border-top:1px solid var(--line);display:flex;gap:10px;align-items:flex-start;font-size:12px;color:#dbe0d5}.check{color:var(--accent);font-size:14px}.integration{border-color:#52613e;background:linear-gradient(140deg,rgba(200,241,105,.08),transparent 70%),var(--panel)}.integration .mono{font-size:9px}.integration p{margin-top:9px}
+.notice{margin:0 auto 68px;max-width:1180px;padding:0 28px}.notice-inner{border-top:1px solid var(--line);padding-top:24px;display:flex;justify-content:space-between;gap:24px;align-items:center}.notice h3{font:500 27px 'Playfair Display',serif;margin:0 0 7px}.notice p{font-size:12px;color:var(--muted);margin:0;line-height:1.6}.cta{display:inline-flex;gap:10px;align-items:center;background:var(--accent);color:#17200d;padding:13px 17px;border-radius:5px;font:11px 'DM Mono',monospace;white-space:nowrap}.cta:hover{background:var(--accent2)}
+footer{border-top:1px solid rgba(255,255,255,.08);padding:22px 0;color:#8f9789;font:10px 'DM Mono',monospace;letter-spacing:.06em}.foot{display:flex;justify-content:space-between;gap:12px}
+@media(max-width:800px){.hero{grid-template-columns:1fr;padding-top:48px}.demo-tag{justify-self:start;margin:0}.main{grid-template-columns:1fr}.messages{height:390px}.side{display:grid;grid-template-columns:1fr 1fr}.notice-inner{align-items:flex-start;flex-direction:column}}
+@media(max-width:520px){.shell{padding:0 16px}.navright{font-size:9px}.hero{padding-top:38px}.intro{font-size:14px}.main{padding-top:8px}.chat-head{padding:0 14px}.messages{padding:18px 13px;height:400px}.msg{max-width:95%}.suggestions{padding:0 13px 14px}.side{grid-template-columns:1fr}.notice{padding:0 16px}.foot{flex-direction:column}.demo-tag{white-space:normal}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header><div class="shell nav"><a class="brand" href="#"><span class="mark"></span><span>AIVANTA AI</span></a><div class="navright">PRODUCT EXPERIENCE / 001</div></div></header>
+<section class="shell hero">
+ <div><div class="eyebrow">CUSTOMER SUPPORT AGENT · INTERACTIVE DEMO</div><h1>Good service,<br><em>without the wait.</em></h1><p class="intro">Meet a sample Aivanta AI customer assistant for Northstar Supply. Ask about products, delivery or returns and see how a business-specific assistant can respond using approved information.</p></div>
+ <div class="demo-tag">● DEMO MODE — SAMPLE STORE DATA</div>
+</section>
+<main class="shell main">
+ <section class="chat-card" aria-label="Northstar Supply chatbot demo">
+  <div class="chat-head"><div class="store"><div class="store-icon">N.</div><div><strong>Northstar Supply</strong><small>Customer care · Aivanta AI demo</small></div></div><div class="online"><span class="dot"></span> DEMO ONLINE</div></div>
+  <div class="messages" id="messages" aria-live="polite">
+   <div class="msg"><div class="avatar">A</div><div class="bubble">Hi there! 👋 Welcome to Northstar Supply. I'm the Aivanta AI demo assistant. I can help with product details, shipping and returns using this sample store's information. What can I help you with?<span class="time">AIVANTA AI · JUST NOW</span></div></div>
+  </div>
+  <div class="suggestions" id="suggestions">
+   <button data-prompt="What's your shipping policy?">Shipping policy</button>
+   <button data-prompt="Which bag is best for travel?">Best bag for travel</button>
+   <button data-prompt="How do returns work?">Returns</button>
+   <button data-prompt="Can I track my order?">Track an order</button>
+  </div>
+  <form class="composer" id="chatForm"><input id="chatInput" autocomplete="off" aria-label="Ask Northstar Supply a question" placeholder="Ask a question about the store…"><button class="send" aria-label="Send message" type="submit">↗</button></form>
+  <div class="chat-foot"><span>FICTIONAL STORE · NO LIVE ORDER ACCESS</span><button class="reset" id="reset">Reset conversation</button></div>
+ </section>
+ <aside class="side">
+  <section class="side-card"><div class="mono">01 / WHAT IT CAN SHOW</div><h2>A helpful first response.</h2><p>This sample assistant answers common questions from a small, defined knowledge base. It does not access customer accounts or live store systems.</p><ul class="side-list"><li><span class="check">✓</span> Product and catalogue FAQs</li><li><span class="check">✓</span> Delivery and returns policies</li><li><span class="check">✓</span> Clear escalation when unsure</li><li><span class="check">✓</span> Consistent, conversational replies</li></ul></section>
+  <section class="side-card integration"><div class="mono">02 / POSSIBLE CLIENT INTEGRATIONS</div><h2>Built around your business.</h2><p>A real deployment can be configured around approved business information and connected tools, subject to discovery and access.</p><ul class="side-list"><li><span class="check">↗</span> Website FAQs and product catalogue</li><li><span class="check">↗</span> Enquiry or lead capture</li><li><span class="check">↗</span> Human handoff to your team</li><li><span class="check">↗</span> Selected CRM, inbox or workflow tools</li></ul></section>
+ </aside>
+</main>
+<section class="notice"><div class="notice-inner"><div><h3>Could this work for your business?</h3><p>This is a concept demo using fictional store data. Aivanta AI scopes each real workflow around your processes, policies and tools.</p></div><a class="cta" href="https://id-preview--bff4f35c-04b0-44cf-84d2-8919afc6d666.lovable.app/#contact">Discuss an automation project <span>↗</span></a></div></section>
+<footer><div class="shell foot"><span>AIVANTA AI · WORKING BRAND NAME</span><span>DEMO BUILD · NORTHSTAR SUPPLY IS FICTIONAL</span></div></footer>
+<script>
+const messages=document.getElementById('messages'), input=document.getElementById('chatInput'), form=document.getElementById('chatForm');
+const welcome=`Hi there! 👋 Welcome to Northstar Supply. I'm the Aivanta AI demo assistant. I can help with product details, shipping and returns using this sample store's information. What can I help you with?`;
+function answer(raw){
+ const q=raw.toLowerCase();
+ if(/track|tracking|order status|where.*order/.test(q)) return `I can explain how tracking would work, but live order tracking isn't connected in this demo. No order status is available here. For help with a real order, contact our sample support team at <strong>demo@northstarsupply.example</strong>. Support hours are Monday–Friday, 9am–5pm (store local time).`;
+ if(/return|refund|exchange/.test(q)) return `Our sample return policy allows <strong>unused items to be returned within 30 days</strong>. Return shipping is paid by the customer unless the item is faulty. If you'd like help with a specific case, our sample support team can assist at <strong>demo@northstarsupply.example</strong>.`;
+ if(/ship|deliver|delivery|postage|express/.test(q)) return `Here's the Northstar Supply sample shipping policy:<br><br>• <strong>Standard:</strong> 3–5 business days. It's free on orders over $75, otherwise $6.<br>• <strong>Express:</strong> $14, usually 1–2 business days.<br><br>These are fictional demo-store rates.`;
+ if(/weekender|travel|carry.?on|suitcase/.test(q)) return `For travel, I'd suggest the <strong>Weekender Bag ($84)</strong>. It has a 32L capacity and is designed to be carry-on friendly. The <strong>Everyday Backpack ($68)</strong> is a smaller 20L option made with water-resistant recycled fabric.`;
+ if(/backpack|bag|product|catalog|price/.test(q)) return `Here are the products in our sample catalogue:<br><br>• <strong>Everyday Backpack — $68:</strong> 20L, water-resistant recycled fabric.<br>• <strong>Transit Bottle — $28:</strong> 750ml stainless steel; keeps drinks cold up to 24 hours.<br>• <strong>Weekender Bag — $84:</strong> 32L and carry-on friendly.<br><br>Would you like help choosing one?`;
+ if(/bottle|drink|cold|750/.test(q)) return `The <strong>Transit Bottle is $28</strong>. It's a 750ml stainless-steel bottle designed to keep drinks cold for up to 24 hours.`;
+ if(/hour|open|support|human|person|contact|email/.test(q)) return `Our sample support team is available <strong>Monday–Friday, 9am–5pm (store local time)</strong>. You can reach the fictional demo support address at <strong>demo@northstarsupply.example</strong>. No email is sent from this demo.`;
+ if(/hello|hi|hey|good morning/.test(q)) return `Hello! 👋 I can help with our sample products, shipping policy, returns or support hours. What would you like to know?`;
+ return `I don't have enough approved sample-store information to answer that confidently. I won't guess. For a real customer-service workflow, this is where the assistant can hand the conversation to a staff member. In this demo, contact <strong>demo@northstarsupply.example</strong> (fictional address; no message will be sent).`;
+}
+function add(text,who){
+ const row=document.createElement('div');row.className='msg '+(who==='user'?'user':'');
+ const avatar=document.createElement('div');avatar.className='avatar';avatar.textContent=who==='user'?'Y':'A';
+ const bubble=document.createElement('div');bubble.className='bubble';
+ const content=document.createElement('div');content.innerHTML=text;
+ const time=document.createElement('span');time.className='time';time.textContent=(who==='user'?'YOU':'AIVANTA AI')+' · JUST NOW';
+ bubble.append(content,time);row.append(avatar,bubble);messages.append(row);messages.scrollTop=messages.scrollHeight;
+}
+function send(text){const clean=text.trim();if(!clean)return;add(escapeText(clean),'user');add(answer(clean),'ai');input.value='';input.focus();}
+function escapeText(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+form.addEventListener('submit',e=>{e.preventDefault();send(input.value);});
+document.getElementById('suggestions').addEventListener('click',e=>{const b=e.target.closest('button[data-prompt]');if(b)send(b.dataset.prompt);});
+document.getElementById('reset').addEventListener('click',()=>{messages.innerHTML='';add(welcome,'ai');});
+</script>
+</body>
+</html>
